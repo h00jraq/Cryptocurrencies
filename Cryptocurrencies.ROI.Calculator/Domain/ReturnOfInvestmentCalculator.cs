@@ -4,25 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Cryptocurrencies.ROI.Calculator.Domain
 {
     static class ReturnOfInvestmentCalculator
     {
-        //private decimal _energyPricePerHour;
-
-        // int _numberOfHours;
-
-
-        //public ReturnOfInvestmentCalculator(decimal energyPricePerHour,  int numberOfHours)
-        //{
-        //    _energyPricePerHour = energyPricePerHour;
-        //    _numberOfHours = numberOfHours;
-        //}
-
-        public static int CalculateNumberOfDays(IEnumerable<GraphicsCard> cards, decimal energyPricePerHour, int numberOfHours, decimal bitcoinPrice)
+        //((hashrate [h/s] * reward) / difficulty) * (1 - poolfee) * 3600 * 24 = reward in coins per day
+        public static double CalculateProfitPerDay(GraphicsCard card, decimal energyPricePerHour,  decimal pricePerCoin,
+                                               int difficulty, decimal reward )
         {
-            
-            return 1;
+
+            int CoinsPerDay = Convert.ToInt32(((card.hashPower * 1000000 * reward) / difficulty) * 3600 * 24);
+            var ReturnOfInvestmentTimeInDays =  (card.price / ((CoinsPerDay * pricePerCoin) - (24 * energyPricePerHour)));
+            return Convert.ToDouble(ReturnOfInvestmentTimeInDays);
         }
 
 
