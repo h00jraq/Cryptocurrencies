@@ -36,5 +36,14 @@ namespace Cryptocurrencies.ROI.Calculator.HelperClasses
             }
 
         }
+
+        public static void GreaterThan(long value, string parameterName, long than = 0)
+        {
+            if (value <= than)
+            {
+                throw new ArgumentException($"{parameterName} is invalid. ");
+            }
+
+        }
     }
 }

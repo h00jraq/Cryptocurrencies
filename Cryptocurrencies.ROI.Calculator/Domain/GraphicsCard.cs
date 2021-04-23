@@ -9,51 +9,30 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 {
     public class GraphicsCard
     {
-        public decimal price 
-        { 
-            get { return _price; } 
-            set { _price = value; } 
-        }
+        public decimal Price { get; set; }
 
-        private decimal _price;
+        public string Model { get; set; }
 
-        public string model
-        {
-            get { return _model; }
-            set { _model = value; }
-        }
-        private string _model;
+        public string Manufacturer { get; set; }
 
-        public string manufacturer
-        {
-            get { return _manufacturer; }
-            set { _manufacturer = value; }
-        }
-        private string _manufacturer;
+        public string Version { get; set; }
 
-        public string version
-        {
-            get { return _version; }
-            set { _version = value; }
-        }
-        private string _version;
+        public int HashPower { get; set; }
 
-        public int hashPower
-        {
-            get { return _hashPower; }
-            set { _hashPower = value; }
-        }
-        private int _hashPower;
 
 
         public GraphicsCard(decimal price, string model, string manufacturer, string version, int hashPower)
         {
+            Check.GreaterThan(price, nameof(price));
+            this.Price = price;
             Check.NullOrWhiteSpace(model, nameof(model));
-            _price = price;
-            _model = model;
-            _manufacturer = manufacturer;
-            _version = version;
-            _hashPower = hashPower;
+            this.Model = model;
+            Check.NullOrWhiteSpace(manufacturer, nameof(manufacturer));
+            this.Manufacturer = manufacturer;
+            Check.NullOrWhiteSpace(version, nameof(version));
+            this.Version = version;
+            Check.GreaterThan(hashPower, nameof(hashPower));
+            this.HashPower = hashPower;
         }
     }
 }
