@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptocurrencies.ROI.Calcul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptocurrencies.ROI.Calculator.UnitTests", "Cryptocurrencies.ROI.Calculator.UnitTests\Cryptocurrencies.ROI.Calculator.UnitTests.csproj", "{FFFB3D1A-F310-463E-B853-DE15A9541820}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApplication", "ClientApplication\ClientApplication.csproj", "{D1E0DCEE-8945-4602-A82E-C289D80E3B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FFFB3D1A-F310-463E-B853-DE15A9541820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFFB3D1A-F310-463E-B853-DE15A9541820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFFB3D1A-F310-463E-B853-DE15A9541820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E0DCEE-8945-4602-A82E-C289D80E3B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E0DCEE-8945-4602-A82E-C289D80E3B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E0DCEE-8945-4602-A82E-C289D80E3B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E0DCEE-8945-4602-A82E-C289D80E3B32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cryptocurrencies.ROI.Calculator.Domain
 {
-    class ASICcomputingDevice
+    class ComputingDevice
     {
     }
 }
