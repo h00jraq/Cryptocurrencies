@@ -5,6 +5,7 @@ using System.Linq;
 using ExchangeRate_API;
 using Newtonsoft.Json;
 using Cryptocurrencies.ROI.Calculator.API;
+using Cryptocurrencies.ROI.Calculator.HelperClasses;
 
 namespace ClientApplication
 {
@@ -47,8 +48,10 @@ namespace ClientApplication
             {
                 Console.WriteLine($"-{(int)currency}, {currency} ");
             }
-
-            string choosenCryptoCurrency = Console.ReadLine();
+            
+            var choosenCryptoCurrency =  Convert.ToInt32(Console.ReadLine());
+            var result = Parsing.TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency, out CryptoCurrencyTypes retVal);
+            Console.WriteLine(result);
             Console.WriteLine("\n");
 
             // Get all available currency tags

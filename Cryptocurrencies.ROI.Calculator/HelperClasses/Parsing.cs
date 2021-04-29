@@ -8,7 +8,7 @@ namespace Cryptocurrencies.ROI.Calculator.HelperClasses
 {
     public static class Parsing
     {
-        public static bool TryParseEnum<TEnum>(this int enumValue, out TEnum retVal)
+        public static bool TryParseEnum<TEnum>(int enumValue, out TEnum retVal)
         {
             retVal = default(TEnum);
             bool success = Enum.IsDefined(typeof(TEnum), enumValue);
