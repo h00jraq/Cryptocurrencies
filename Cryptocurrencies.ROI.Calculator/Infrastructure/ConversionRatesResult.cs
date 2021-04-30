@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Cryptocurrencies.ROI.Calculator.API
 {
-    public class API_Obj
+    public class ConversionRatesResult
     {
-        public string result { get; set; }
+        [JsonProperty("result")]
+        public string Result { get; set; }
         public string documentation { get; set; }
         public string terms_of_use { get; set; }
         public string time_zone { get; set; }
