@@ -66,11 +66,11 @@ namespace ClientApplication
                 Console.WriteLine($"-{(int)currencyType}, {currencyType} ");
             }
 
-            var choosenCryptoCurrency = Convert.ToInt32(Console.ReadLine());
-            var cryptoResult = Parsing.TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency, out CryptoCurrencyTypes retVal);
+            CurrencyTypes choosenCryptoCurrency = Convert.ToInt32(Console.ReadLine());
+            CurrencyTypes cryptoResult = Parsing.TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency, out CryptoCurrencyTypes retVal);
             Console.WriteLine(cryptoResult);
             Console.WriteLine("\n");
-            return currency;
+            return choosenCryptoCurrency;
         }
 
     }
