@@ -8,15 +8,16 @@ namespace Cryptocurrencies.ROI.Calculator.HelperClasses
 {
     public static class Parsing
     {
-        public static bool TryParseEnum<TEnum>(int enumValue, out TEnum retVal)
+        public static (bool state, Enum enumVal) TryParseEnum(Enum enumValue)
         {
-            retVal = default(TEnum);
-            bool success = Enum.IsDefined(typeof(TEnum), enumValue);
+            var state = false;
+            var enumVal = default(Enum);
+            bool success = Enum.IsDefined(typeof(Enum), enumValue);
             if (success)
             {
-                retVal = (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
+                enumVal = enumValue;
             }
-            return success;
+            return (state, enumVal);
         }
     }
 }

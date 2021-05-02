@@ -23,31 +23,26 @@ namespace ClientApplication
             {
                 result = ExchangeRateProvider.Import();
             }
-            catch
+           catch
             {
                 Console.WriteLine("API comunication error");
             }
 
-            var yourCurrency = Console.ReadLine();
-            //Console.WriteLine(result.conversion_rates.PLN);
+            var yourCurrency = ChooseCurrencyType();
             Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
                               "List of available crypto currencies:");
 
-            foreach (var currency in Enum.GetValues(typeof(CryptoCurrencyTypes)))
-            {
-                Console.WriteLine($"-{(int)currency}, {currency} ");
-            }
-
-            var choosenCryptoCurrency = Convert.ToInt32(Console.ReadLine());
-            var cryptoResult = Parsing.TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency, out CryptoCurrencyTypes retVal);
-            Console.WriteLine(cryptoResult);
+            int choosenCryptoCurrency = 0;
             Console.WriteLine("\n");
-
-            Console.WriteLine($"Everything is calculated to USD $ dollars as {choosenCryptoCurrency} has value in USD $. Chose your default currency:");
-            var fromCurrency = Console.ReadLine();
+            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
             Console.WriteLine("\n");
+            Console.WriteLine("Please choose what kind of device (GPU, ASIC etc) you are using to mine CryptoCurrency");
+            var query = (m => m.)
 
         }
+
+
+
 
         static void ShowAvailableCurrencies()
         {
@@ -63,14 +58,26 @@ namespace ClientApplication
         {
             foreach (var currencyType in Enum.GetValues(typeof(CurrencyTypes)))
             {
-                Console.WriteLine($"-{(int)currencyType}, {currencyType} ");
+                Console.WriteLine($"- {(int)currencyType}, {currencyType} ");
             }
 
-            CurrencyTypes choosenCryptoCurrency = Convert.ToInt32(Console.ReadLine());
-            CurrencyTypes cryptoResult = Parsing.TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency, out CryptoCurrencyTypes retVal);
-            Console.WriteLine(cryptoResult);
+            CurrencyTypes choosenCryptoCurrency = (CurrencyTypes)Enum.Parse(typeof(CurrencyTypes), Console.ReadLine());
+            Console.WriteLine(choosenCryptoCurrency);
             Console.WriteLine("\n");
             return choosenCryptoCurrency;
+        }
+
+        static TEnum TryParseEnum<TEnum>(int value)
+        {
+            
+            foreach (var enumerator in Enum.GetValues(typeof(TEnum)))
+              {
+                  Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
+              }
+            TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Console.ReadLine());
+            Console.WriteLine(choosenEnumerator);
+            return choosenEnumerator;
+
         }
 
     }

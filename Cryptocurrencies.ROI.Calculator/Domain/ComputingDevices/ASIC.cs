@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Cryptocurrencies.ROI.Calculator.Domain
 {
-    class ASIC
+    class ASIC : ComputingDevice
     {
+        public ASIC(decimal price, string model, string manufacturer, string version, int hashPower)
+            : base(price, model, manufacturer, version, hashPower)
+        {
+
+        }
     }
 }

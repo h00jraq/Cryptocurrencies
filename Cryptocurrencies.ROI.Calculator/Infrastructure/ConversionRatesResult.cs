@@ -9,8 +9,8 @@ namespace Cryptocurrencies.ROI.Calculator.API
 {
     public class ConversionRatesResult
     {
-        [JsonProperty("result")]
-        public string Result { get; set; }
+        //[JsonProperty("result")]
+        public string result { get; set; }
         public string documentation { get; set; }
         public string terms_of_use { get; set; }
         public string time_zone { get; set; }
