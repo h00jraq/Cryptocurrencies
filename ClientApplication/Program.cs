@@ -37,16 +37,18 @@ namespace ClientApplication
             var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
             Console.WriteLine("\n");
             Console.WriteLine("Please choose what kind of device (GPU, ASIC etc) you are using to mine CryptoCurrency");
+            var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
+                                .GroupBy(p => p.GetType().Name)
+                                .Select(g => g.First())
+                                .ToList();
 
-            var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType() == typeof(ComputingDevice));
             foreach (var item in listOfDevices)
             {
-                Console.WriteLine(item.GetType());
+                Console.WriteLine(item.GetType().Name);
             }
+           
 
         }
-
-        
 
 
         static void ShowAvailableCurrencies()
