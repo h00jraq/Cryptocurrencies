@@ -19,5 +19,17 @@ namespace Cryptocurrencies.ROI.Calculator.HelperClasses
             }
             return (state, enumVal);
         }
+
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> sourceData,
+                                               Func<T, bool> predicate)
+        {
+
+            foreach (var item in sourceData)
+            {
+                if (predicate(item))
+                    yield return item;
+            }
+
+        }
     }
 }

@@ -15,6 +15,19 @@ namespace ClientApplication
         static void Main(string[] args)
         {
 
+            var listOfDevices2 = DevicesProvider.AvailableDevices.Where(g => g.GetType().Name == "GraphicsCard");
+            foreach (var item in listOfDevices2)
+            {
+                Console.WriteLine(item.Model);
+            }
+
+            var listOfDevices3 = DevicesProvider.AvailableDevices.Where(p => p.GetType() == typeof(GraphicsCard))
+                                .GroupBy(p => p.Model)
+                                .Select(g => g.First());
+            foreach (var item in listOfDevices3)
+            {
+                Console.WriteLine(item.Model);
+            }
             ShowAvailableCurrencies();
 
 
@@ -36,7 +49,7 @@ namespace ClientApplication
             Console.WriteLine("\n");
             var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
             Console.WriteLine("\n");
-            Console.WriteLine("Please choose what kind of device (GPU, ASIC etc) you are using to mine CryptoCurrency");
+            Console.WriteLine("Please choose what kind of device (GPU, ASIC etc) you are using to mine CryptoCurrency: ");
             var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
                                 .GroupBy(p => p.GetType().Name)
                                 .Select(g => g.First())
@@ -46,8 +59,8 @@ namespace ClientApplication
             {
                 Console.WriteLine(item.GetType().Name);
             }
-           
 
+ 
         }
 
 
