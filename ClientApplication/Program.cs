@@ -15,21 +15,78 @@ namespace ClientApplication
         static void Main(string[] args)
         {
 
-            var listOfDevices2 = DevicesProvider.AvailableDevices.Where(g => g.GetType().Name == "GraphicsCard");
-            foreach (var item in listOfDevices2)
-            {
-                Console.WriteLine(item.Model);
-            }
+            Console.WriteLine("Please choose what kind of device you are using to mine CryptoCurrency: ");
+            var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
+                                .GroupBy(p => p.GetType().Name)
+                                .Select(g => g.First())
+                                .ToList();
 
-            var listOfDevices3 = DevicesProvider.AvailableDevices.Where(p => p.GetType() == typeof(GraphicsCard))
-                                .GroupBy(p => p.Model)
-                                .Select(g => g.First());
-            foreach (var item in listOfDevices3)
+            foreach (var item in listOfDevices)
+            {
+                Console.WriteLine("-" + item.GetType().Name);
+            }
+            Console.WriteLine("\n");
+            Console.Write("Your choice:");
+            string deviceType = Console.ReadLine();
+            Console.WriteLine("\n");
+
+            Console.WriteLine("Choose the device Manufacturer from below ones: \n");
+
+            var manufacturers = DevicesProvider.AvailableDevices.Where(p => p.GetType().Name == deviceType)
+                                .GroupBy(p => p.Manufacturer)
+                                .Select(p => p.First())
+                                .ToList();
+
+            foreach (var item in manufacturers)
+            {
+                Console.WriteLine("-" + item.Manufacturer);
+            }
+            Console.WriteLine("\n");
+            Console.Write("Device Manufacturer: ");
+            string deviceManufacturer = Console.ReadLine();
+            Console.WriteLine("\n");
+
+            Console.Write("Choose the Model: \n");
+
+            var listOfDevicesByModel = DevicesProvider.AvailableDevices.Where(g => g.GetType().Name == deviceType).Where(g => g.Manufacturer == deviceManufacturer)
+                                .GroupBy(g => g.Model)
+                                .Select(g => g.First())
+                                .ToList();
+            foreach (var item in listOfDevicesByModel)
             {
                 Console.WriteLine(item.Model);
             }
+            string deviceModel = Console.ReadLine();
+            Console.WriteLine("\n");
+            Console.Write("Choose the Version: \n");
+
+            var listOfModelsByVersion = DevicesProvider.AvailableDevices.Where(g => g.GetType().Name == deviceType).Where(g => g.Model == deviceModel)
+                               .GroupBy(g => g.Version)
+                               .Select(g => g.First())
+                               .ToList();
+            foreach (var item in listOfModelsByVersion)
+            {
+                Console.WriteLine(item.Version);
+            }
+            Console.WriteLine("\n");
+            string version = Console.ReadLine();
+
+            var chosenDevices = DevicesProvider.AvailableDevices.Where(d => d.GetType().Name == deviceType).Where(d => d.Manufacturer == deviceManufacturer).Where(d => d.Model == deviceModel)
+                                                                .Where(d => d.Version == version);
+
+            Console.WriteLine("Display list");
+            Console.WriteLine(chosenDevices.First());
+            Console.WriteLine($"The Devices that you have chosen is: " +
+                $"              DeviceType:{deviceType}  \n" +
+                $"              Manufacturer:{deviceManufacturer}  \n" +
+                $"              Model:{deviceModel} \n" +
+                $"              Version:{version}\n");
+
+
+            Console.WriteLine("--------------------------------");
+            
             ShowAvailableCurrencies();
-
+            Console.WriteLine("\n");
 
             ConversionRatesResult result;
             try
@@ -49,16 +106,7 @@ namespace ClientApplication
             Console.WriteLine("\n");
             var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
             Console.WriteLine("\n");
-            Console.WriteLine("Please choose what kind of device (GPU, ASIC etc) you are using to mine CryptoCurrency: ");
-            var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
-                                .GroupBy(p => p.GetType().Name)
-                                .Select(g => g.First())
-                                .ToList();
-
-            foreach (var item in listOfDevices)
-            {
-                Console.WriteLine(item.GetType().Name);
-            }
+            
 
  
         }

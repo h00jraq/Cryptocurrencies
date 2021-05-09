@@ -25,9 +25,9 @@ namespace Cryptocurrencies.ROI.Calculator.Infrastructure
                 new ASIC(6200, "Whatsminer M3270", "Whatsminer", "70", 2000),
                 new ASIC(10000, "Antminer S7", "Antminer", "Turbo", 2500),
                 new ASIC(7800, "CryptoMiner X21", "MiningFacility", "X21", 3300),
-                new ASIC(10000, "AvalonMiner 1246", "Avalon", "1246", 3100),
-                new ASIC(8500, "WhatsMiner M32-62T", "Whatsminer", "62T", 4100),
-                new ASIC(9000, "AvalonMiner A1166 Pro", "Avalon", "70", 3800)
+                new ASIC(10000, "AvalonMiner 1246", "Avalon", "XC Core", 3100),
+                new ASIC(8500, "WhatsMiner M32-62T", "Whatsminer", "62T-Pro", 4100),
+                new ASIC(9000, "AvalonMiner A1166 Pro", "Avalon", "Pro XT Turbo", 3800)
             };
 
     }
