@@ -15,6 +15,42 @@ namespace ClientApplication
         static void Main(string[] args)
         {
 
+            var device = ChooseComputingDevice();
+            foreach (var item in device)
+            {
+                Console.WriteLine(item.Manufacturer + item.Model + item.Version);
+            }
+
+            Console.WriteLine("--------------------------------");
+            
+            ShowAvailableCurrencies();
+            Console.WriteLine("\n");
+
+            ConversionRatesResult result;
+            try
+            {
+                result = ExchangeRateProvider.Import();
+            }
+            catch
+            {
+                Console.WriteLine("API comunication error");
+            }
+
+            var yourCurrency = ChooseCurrencyType();
+            Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
+                              "List of available crypto currencies:");
+
+            int choosenCryptoCurrency = 0;
+            Console.WriteLine("\n");
+            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
+            Console.WriteLine("\n");
+            
+
+ 
+        }
+
+        static IEnumerable<ComputingDevice> ChooseComputingDevice()
+        {
             Console.WriteLine("Please choose what kind of device you are using to mine CryptoCurrency: ");
             var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
                                 .GroupBy(p => p.GetType().Name)
@@ -72,45 +108,18 @@ namespace ClientApplication
             string version = Console.ReadLine();
 
             var chosenDevices = DevicesProvider.AvailableDevices.Where(d => d.GetType().Name == deviceType).Where(d => d.Manufacturer == deviceManufacturer).Where(d => d.Model == deviceModel)
-                                                                .Where(d => d.Version == version);
+                                                                .Where(d => d.Version == version)
+                                                                .Select(d =>d)
+                                                                .ToList();
 
-            Console.WriteLine("Display list");
-            Console.WriteLine(chosenDevices.First());
-            Console.WriteLine($"The Devices that you have chosen is: " +
+            Console.WriteLine($"The Devices that you have chosen is: \n" +
                 $"              DeviceType:{deviceType}  \n" +
                 $"              Manufacturer:{deviceManufacturer}  \n" +
                 $"              Model:{deviceModel} \n" +
                 $"              Version:{version}\n");
 
-
-            Console.WriteLine("--------------------------------");
-            
-            ShowAvailableCurrencies();
-            Console.WriteLine("\n");
-
-            ConversionRatesResult result;
-            try
-            {
-                result = ExchangeRateProvider.Import();
-            }
-           catch
-            {
-                Console.WriteLine("API comunication error");
-            }
-
-            var yourCurrency = ChooseCurrencyType();
-            Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
-                              "List of available crypto currencies:");
-
-            int choosenCryptoCurrency = 0;
-            Console.WriteLine("\n");
-            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
-            Console.WriteLine("\n");
-            
-
- 
+            return chosenDevices;
         }
-
 
         static void ShowAvailableCurrencies()
         {
