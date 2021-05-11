@@ -30,6 +30,8 @@ namespace ClientApplication
             try
             {
                 result = ExchangeRateProvider.Import();
+                var myCurrency = result.GetType().GetProperty("PLN").GetValue(result, null);
+                Console.WriteLine(result.conversion_rates.PLN);
             }
             catch
             {
