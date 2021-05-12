@@ -14,41 +14,42 @@ namespace ClientApplication
     {
         static void Main(string[] args)
         {
+            //ShowAvailableCurrencies();
+            var chosenCurrency = ChoseCurrencyRate();
 
+            Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
+                              "List of available crypto currencies:");
+
+            int choosenCryptoCurrency = 0;
+            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
             var device = ChooseComputingDevice();
             foreach (var item in device)
             {
                 Console.WriteLine(item.Manufacturer + item.Model + item.Version);
             }
 
-            Console.WriteLine("--------------------------------");
-            
-            ShowAvailableCurrencies();
-            Console.WriteLine("\n");
+            Console.WriteLine("--------The End--------");
+ 
+        }
 
-            ConversionRatesResult result;
+        private static object ChoseCurrencyRate()
+        {
+            Object myCurrency = null;
             try
             {
-                result = ExchangeRateProvider.Import();
-                var myCurrency = result.GetType().GetProperty("PLN").GetValue(result, null);
-                Console.WriteLine(result.conversion_rates.PLN);
+                var yourCurrency = ChooseCurrencyType();
+                var exchangeRateResult = ExchangeRateProvider.Import();
+                var conversionRateResult = exchangeRateResult.conversion_rates;
+                var conversionRate = conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                Console.WriteLine($"Conversion rate from $ to " + yourCurrency + " is " + conversionRate);
+                return conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                
             }
             catch
             {
                 Console.WriteLine("API comunication error");
             }
-
-            var yourCurrency = ChooseCurrencyType();
-            Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
-                              "List of available crypto currencies:");
-
-            int choosenCryptoCurrency = 0;
-            Console.WriteLine("\n");
-            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
-            Console.WriteLine("\n");
-            
-
- 
+            return myCurrency;
         }
 
         static IEnumerable<ComputingDevice> ChooseComputingDevice()
@@ -133,17 +134,17 @@ namespace ClientApplication
 
         }
 
-        static CurrencyTypes ChooseCurrencyType()
+        static string ChooseCurrencyType()
         {
+            Console.WriteLine("Please choose from the following Currencies: ");
             foreach (var currencyType in Enum.GetValues(typeof(CurrencyTypes)))
             {
                 Console.WriteLine($"- {(int)currencyType}, {currencyType} ");
             }
-
-            CurrencyTypes choosenCryptoCurrency = (CurrencyTypes)Enum.Parse(typeof(CurrencyTypes), Console.ReadLine());
-            Console.WriteLine(choosenCryptoCurrency);
-            Console.WriteLine("\n");
-            return choosenCryptoCurrency;
+            Console.Write("Currency number: ");
+            CurrencyTypes choosenCurrency = (CurrencyTypes)Enum.Parse(typeof(CurrencyTypes), Console.ReadLine());
+            Console.WriteLine($"You have chosen " + choosenCurrency + " currency");
+            return choosenCurrency.ToString(); ;
         }
 
         static TEnum TryParseEnum<TEnum>(int value)
@@ -153,8 +154,9 @@ namespace ClientApplication
               {
                   Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
               }
+            Console.Write("Crypto currency number: ");
             TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Console.ReadLine());
-            Console.WriteLine(choosenEnumerator);
+            Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency");
             return choosenEnumerator;
 
         }
