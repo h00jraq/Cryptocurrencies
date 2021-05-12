@@ -9,7 +9,7 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
     public interface ICalculateROI
     {
 
-        public decimal CalculateROIinDays(GraphicsCard card, int powerConsumptionPerHour, decimal energyPricePerKWH);
+        public decimal CalculateROIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKWH, decimal currencyRate);
     
     }
 }

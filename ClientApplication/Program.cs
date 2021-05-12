@@ -22,14 +22,31 @@ namespace ClientApplication
 
             int choosenCryptoCurrency = 0;
             var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
+            { 
+            int currencyValue;
+            if (choosenCryptoCurrencyy == CryptoCurrencyTypes.Ethereum)
+            {
+                var currencyValue = 3991;
+                var blockReward = 9.2679m;
+                var networkDifficulty = 750000000;
+            }
+            if (choosenCryptoCurrencyy == CryptoCurrencyTypes.Bitcoin)
+            {
+                var currencyValue = 68206631527.88;
+                var blockReward = 6.8679m;
+                var networkDifficulty =2060000000;
+            }
             var device = ChooseComputingDevice();
             foreach (var item in device)
             {
                 Console.WriteLine(item.Manufacturer + item.Model + item.Version);
             }
 
+
+            var cryptoCurrency = CryptoCurrencyFactory.CreateCrypto(choosenCryptoCurrencyy, currencyValue, blockReward, networkDifficulty);
             Console.WriteLine("--------The End--------");
- 
+            }
+
         }
 
         private static object ChoseCurrencyRate()

@@ -40,6 +40,7 @@ namespace Cryptocurrencies.ROI.Calculator.UnitTests.Domain
 
             var GPU = new GraphicsCard(graphicsCardPrice, cardName, manufacturer, modelVersion, hashPower);
 
+            var currencyRate = 1;
             var currencyValue = 2273.3251m;
             var blockReward = 3.7239m;
             var networkDifficulty = 6686223571428240;
@@ -51,7 +52,7 @@ namespace Cryptocurrencies.ROI.Calculator.UnitTests.Domain
             var expectedDays = 503;
 
             //Act
-            var days = ethereum.CalculateROIinDays(GPU,  powerConsumptionPerHour, energyPricePerKWH);
+            var days = ethereum.CalculateROIinDays(GPU,  powerConsumptionPerHour, energyPricePerKWH, currencyRate);
 
             //Assert
             Assert.Equal(expectedDays, days);
