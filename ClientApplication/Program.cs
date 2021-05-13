@@ -156,7 +156,12 @@ namespace ClientApplication
                 Console.WriteLine($"- {(int)currencyType}, {currencyType} ");
             }
             Console.Write("Currency number: ");
-            CurrencyTypes choosenCurrency = (CurrencyTypes)Enum.Parse(typeof(CurrencyTypes), Console.ReadLine());
+            int value = Convert.ToInt32(Console.ReadLine());
+            bool success = TryParseEnum2<CurrencyTypes>(value, out CurrencyTypes choosenCurrency);
+            if (!success)
+            {
+                Console.WriteLine("That currency does not exist, default currency set to USD $");
+            }
             Console.WriteLine($"You have chosen " + choosenCurrency + " currency");
             return choosenCurrency.ToString(); ;
         }
@@ -169,6 +174,20 @@ namespace ClientApplication
             TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
             Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency \n");
             return choosenEnumerator;
+
+        }
+
+        public static bool TryParseEnum2<TEnum>(int enumValue, out TEnum retVal)
+        {
+
+
+            retVal = default(TEnum);
+            bool success = Enum.IsDefined(typeof(TEnum), enumValue);
+            if (success)
+            {
+                retVal = (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
+            }
+            return success;
 
         }
 
