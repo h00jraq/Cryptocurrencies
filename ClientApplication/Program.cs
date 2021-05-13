@@ -27,12 +27,13 @@ namespace ClientApplication
             {
 
                 var device = ChooseComputingDevice();
-                foreach (var item in device)
-                {
-                    Console.WriteLine(item.Manufacturer + item.Model + item.Version);
-                }
-
+                Console.WriteLine(device.Manufacturer + device.Model + device.Version);
                 var myCrypto = CreateCrypto(choosenCryptoCurrency);
+                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?");
+                var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
+                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?");
+                var energyPricePerKWH = Convert.ToInt32(Console.ReadLine());
+                var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
                 Console.WriteLine("--------The End--------");
             }
 
@@ -45,17 +46,17 @@ namespace ClientApplication
             CryptoCurrencyTypes.Bitcoin => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Bitcoin, 54561.69751m, 6.8679m, 2060000000),
             _ => throw new ArgumentOutOfRangeException(nameof(choosenCryptoCurrency), $"Not expected crypto value: {choosenCryptoCurrency}"), 
         };
-        private static object ChoseCurrencyRate()
+        private static decimal ChoseCurrencyRate()
         {
-            Object myCurrency = null;
+            decimal myCurrency = 0;
             try
             {
                 var yourCurrency = ChooseCurrencyType();
                 var exchangeRateResult = ExchangeRateProvider.Import();
                 var conversionRateResult = exchangeRateResult.conversion_rates;
-                var conversionRate = conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                decimal conversionRate = (decimal)conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
                 Console.WriteLine($"Conversion rate from $ to " + yourCurrency + " is " + conversionRate);
-                return conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                return (decimal)conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
 
             }
             catch
