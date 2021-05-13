@@ -29,7 +29,7 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 
         }
 
-        public decimal CalculateROIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKWH, decimal currencyRate)
+        public decimal CalculateROIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKWH, double currencyRate)
         {
             decimal coinsPerDay = (((device.HashPower * 1000000 * BlockRewards) / NetworkDifficulty) * 3600 * 24);
             var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice) - ((24 * powerConsumptionPerHour) / 1000) * energyPricePerKWH));

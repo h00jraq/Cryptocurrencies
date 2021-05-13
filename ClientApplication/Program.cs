@@ -22,18 +22,20 @@ namespace ClientApplication
             {
                 Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
             }
+            Console.Write("Your currency: ");
             var cryptoCurrency = Convert.ToInt32(Console.ReadLine());
             var choosenCryptoCurrency = TryParseEnum<CryptoCurrencyTypes>(cryptoCurrency);
             {
 
                 var device = ChooseComputingDevice().First();
-                Console.WriteLine(device.Manufacturer + device.Model + device.Version);
+                Console.WriteLine(device.Manufacturer +" " + device.Model + " " + device.Version);
                 var myCrypto = CreateCrypto(choosenCryptoCurrency);
                 Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
                 var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
                 Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
-                var energyPricePerKWH = Convert.ToInt32(Console.ReadLine());
+                var energyPricePerKWH = Convert.ToDecimal(Console.ReadLine());
                 var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
+                Console.WriteLine($"You will get your money back after " + roiINDays + " days of mining 24 hours/day");
                 Console.WriteLine("--------The End--------");
             }
 
@@ -42,21 +44,21 @@ namespace ClientApplication
 
         public static ICalculateROI CreateCrypto(CryptoCurrencyTypes choosenCryptoCurrency) => choosenCryptoCurrency switch 
         {
-            CryptoCurrencyTypes.Ethereum => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Ethereum, 3991m, 9.2679m, 750000000),
-            CryptoCurrencyTypes.Bitcoin => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Bitcoin, 54561.69751m, 6.8679m, 2060000000),
+            CryptoCurrencyTypes.Ethereum => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Ethereum, 3991.7733m, 4.446598m, 7503377692267855),
+            CryptoCurrencyTypes.Bitcoin => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Bitcoin, 50435.2699m, 6.88159m, 25046487590083),
             _ => throw new ArgumentOutOfRangeException(nameof(choosenCryptoCurrency), $"Not expected crypto value: {choosenCryptoCurrency}"), 
         };
-        private static decimal ChoseCurrencyRate()
+        private static double ChoseCurrencyRate()
         {
-            decimal myCurrency = 0;
+            double myCurrency = 0;
             try
             {
                 var yourCurrency = ChooseCurrencyType();
                 var exchangeRateResult = ExchangeRateProvider.Import();
                 var conversionRateResult = exchangeRateResult.conversion_rates;
-                decimal conversionRate = (decimal)conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                var conversionRate = conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
                 Console.WriteLine($"Conversion rate from $ to " + yourCurrency + " is " + conversionRate);
-                return (decimal)conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
+                return (double)conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
 
             }
             catch
@@ -78,10 +80,8 @@ namespace ClientApplication
             {
                 Console.WriteLine("-" + item.GetType().Name);
             }
-            Console.WriteLine("\n");
             Console.Write("Your choice:");
             string deviceType = Console.ReadLine();
-            Console.WriteLine("\n");
 
             Console.WriteLine("Choose the device Manufacturer from below ones: \n");
 
@@ -94,7 +94,6 @@ namespace ClientApplication
             {
                 Console.WriteLine("-" + item.Manufacturer);
             }
-            Console.WriteLine("\n");
             Console.Write("Device Manufacturer: ");
             string deviceManufacturer = Console.ReadLine();
             Console.WriteLine("\n");
@@ -107,8 +106,9 @@ namespace ClientApplication
                                 .ToList();
             foreach (var item in listOfDevicesByModel)
             {
-                Console.WriteLine(item.Model);
+                Console.WriteLine("-" + item.Model);
             }
+            Console.Write("Device Model: ");
             string deviceModel = Console.ReadLine();
             Console.WriteLine("\n");
             Console.Write("Choose the Version: \n");
@@ -119,9 +119,9 @@ namespace ClientApplication
                                .ToList();
             foreach (var item in listOfModelsByVersion)
             {
-                Console.WriteLine(item.Version);
+                Console.WriteLine("-" +item.Version);
             }
-            Console.WriteLine("\n");
+            Console.Write("Device Version: ");
             string version = Console.ReadLine();
 
             var chosenDevices = DevicesProvider.AvailableDevices.Where(d => d.GetType().Name == deviceType).Where(d => d.Manufacturer == deviceManufacturer).Where(d => d.Model == deviceModel)
@@ -165,9 +165,9 @@ namespace ClientApplication
         {
 
 
-            Console.Write("Crypto currency number: ");
+            Console.Write("Crypto currency chosen: ");
             TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
-            Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency");
+            Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency \n");
             return choosenEnumerator;
 
         }
