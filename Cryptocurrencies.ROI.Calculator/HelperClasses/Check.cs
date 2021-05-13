@@ -2,7 +2,7 @@
 
 namespace Cryptocurrencies.ROI.Calculator.HelperClasses
 {
-    static class Check
+    public static class Check
     {
         public static void NullOrWhiteSpace(string text, string parameterName)
         {

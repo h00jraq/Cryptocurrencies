@@ -16,31 +16,51 @@ namespace ClientApplication
         {
             var chosenCurrency = ChoseCurrencyRate();
 
-            Console.WriteLine("\nPlease choose Crypto Currency you are currently mining.\n" +
-                              "List of available crypto currencies:");
+            Console.WriteLine("\n Please choose Crypto Currency you are currently mining.\n" +
+                                 "List of available crypto currencies:");
+
+
+            //foreach (var enumerator in Enum.GetValues<CryptoCurrencyTypes>())
+            //{
+            //    Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
+            //}
+            // Console.Write("Your currency: ");
+            // var cryptoCurrency = Convert.ToInt32(Console.ReadLine());
+            // var choosenCryptoCurrency = TryParseCryptoEnum<CryptoCurrencyTypes>(cryptoCurrency);
+           var chosenCryptoCurrency = choseCryptoCurrency();
+           var device = ChooseComputingDevice().First();
+           Console.WriteLine(device.Manufacturer +" " + device.Model + " " + device.Version);
+           var myCrypto = CreateCrypto(chosenCryptoCurrency);
+           Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
+           var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
+           Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
+           var energyPricePerKWH = Convert.ToDecimal(Console.ReadLine());
+           var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
+           Console.WriteLine($"You will get your money back after " + roiINDays + " days of mining 24 hours/day");
+           Console.WriteLine("--------The End--------");
+            
+
+        }
+
+        private static CryptoCurrencyTypes choseCryptoCurrency()
+        {
             foreach (var enumerator in Enum.GetValues<CryptoCurrencyTypes>())
             {
                 Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
             }
             Console.Write("Your currency: ");
-            var cryptoCurrency = Convert.ToInt32(Console.ReadLine());
-            var choosenCryptoCurrency = TryParseEnum<CryptoCurrencyTypes>(cryptoCurrency);
+            var value = Convert.ToInt32(Console.ReadLine());
+            bool success = TryParseCurrencyEnum<CryptoCurrencyTypes>(value, out CryptoCurrencyTypes chosenCryptoCurrency);
+            if (success)
             {
-
-                var device = ChooseComputingDevice().First();
-                Console.WriteLine(device.Manufacturer +" " + device.Model + " " + device.Version);
-                var myCrypto = CreateCrypto(choosenCryptoCurrency);
-                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
-                var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
-                Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
-                var energyPricePerKWH = Convert.ToDecimal(Console.ReadLine());
-                var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
-                Console.WriteLine($"You will get your money back after " + roiINDays + " days of mining 24 hours/day");
-                Console.WriteLine("--------The End--------");
+                Console.WriteLine($"You have chosen " + chosenCryptoCurrency + " as Crypto Currency \n");
             }
-
+            else 
+            {
+                Console.WriteLine("Currency does not exist!");
+            }
+            return chosenCryptoCurrency;
         }
-
 
         public static ICalculateROI CreateCrypto(CryptoCurrencyTypes choosenCryptoCurrency) => choosenCryptoCurrency switch 
         {
@@ -157,7 +177,7 @@ namespace ClientApplication
             }
             Console.Write("Currency number: ");
             int value = Convert.ToInt32(Console.ReadLine());
-            bool success = TryParseEnum2<CurrencyTypes>(value, out CurrencyTypes choosenCurrency);
+            bool success = TryParseCurrencyEnum<CurrencyTypes>(value, out CurrencyTypes choosenCurrency);
             if (!success)
             {
                 Console.WriteLine("That currency does not exist, default currency set to USD $");
@@ -166,18 +186,24 @@ namespace ClientApplication
             return choosenCurrency.ToString(); ;
         }
 
-        static TEnum TryParseEnum<TEnum>(int value)
+        /*public static bool TryParseCryptoEnum<TEnum>(int value, out TEnum retVal)
         {
 
 
             Console.Write("Crypto currency chosen: ");
-            TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
-            Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency \n");
-            return choosenEnumerator;
+            bool success = Enum.IsDefined(typeof(TEnum), value);
+            if (success)
+            {
+                Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency \n");
+                retVal = (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
+            }
+            //TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
+            
+            return success;
 
-        }
+        }*/
 
-        public static bool TryParseEnum2<TEnum>(int enumValue, out TEnum retVal)
+        public static bool TryParseCurrencyEnum<TEnum>(int enumValue, out TEnum retVal)
         {
 
 
