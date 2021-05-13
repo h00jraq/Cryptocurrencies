@@ -23,12 +23,12 @@ namespace Cryptocurrencies.ROI.Calculator.Infrastructure
                 new GraphicsCard(1250, "RTX 3060", "Asus", "TUF", 80),
                 new GraphicsCard(1350, "RTX 3060 Ti", "MSI", "Gaming X", 85),
                 new GraphicsCard(1450, "RTX 3070", "MSI", "Gaming OC", 98),
-                new ASIC(49000, "Whatsminer M3270", "Whatsminer", "70", 20000),
-                new ASIC(55000, "Antminer S7", "Antminer", "Turbo", 25000),
-                new ASIC(45000, "CryptoMiner X21", "MiningFacility", "X21", 33000),
-                new ASIC(51000, "AvalonMiner 1246", "Avalon", "XC Core", 31000),
-                new ASIC(60000, "WhatsMiner M32-62T", "Whatsminer", "62T-Pro", 41000),
-                new ASIC(58000, "AvalonMiner A1166 Pro", "Avalon", "Pro XT Turbo", 38000)
+                new ASIC(49000, "Whatsminer M3270", "Whatsminer", "70", 100000000000000),
+                new ASIC(55000, "Antminer S7", "Antminer", "Turbo", 115000000000000),
+                new ASIC(45000, "CryptoMiner X21", "MiningFacility", "X21", 90000000000000),
+                new ASIC(51000, "AvalonMiner 1246", "Avalon", "XC Core", 950000000000000),
+                new ASIC(60000, "WhatsMiner M32-62T", "Whatsminer", "62T-Pro", 120000000000000),
+                new ASIC(58000, "AvalonMiner A1166 Pro", "Avalon", "Pro XT Turbo", 115000000000000)
             };
 
     }

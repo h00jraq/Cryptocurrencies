@@ -12,10 +12,10 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
         public string CurrencyName { get; private set; }
         public decimal CurrencyPrice { get; private set; }
         public decimal BlockRewards { get; private set; }
-        public long NetworkDifficulty { get; private set; }
+        public decimal NetworkDifficulty { get; private set; }
 
 
-        public Ethereum(decimal currencyPrice, decimal blockReward, long networkDifficulty)
+        public Ethereum(decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
         {
             Check.GreaterThan(currencyPrice, nameof(currencyPrice));
             Check.GreaterThan(blockReward, nameof(blockReward));
@@ -30,7 +30,6 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 
         public decimal CalculateROIinDays(ComputingDevice device,  int powerConsumptionPerHour, decimal energyPricePerKWH, double currencyRate)
         {
-            
             decimal coinsPerDay = (((device.HashPower * 1000000 * BlockRewards) / NetworkDifficulty) * 3600 * 24);
             var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice) - ((24 * powerConsumptionPerHour)/1000) * energyPricePerKWH));
             return Math.Round(returnOfInvestmentTimeInDays);

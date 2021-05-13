@@ -17,9 +17,9 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 
         public string Version { get; set; }
 
-        public int HashPower { get; set; }
+        public long HashPower { get; set; }
 
-        public ComputingDevice(decimal price, string model, string manufacturer, string version, int hashPower)
+        public ComputingDevice(decimal price, string model, string manufacturer, string version, long hashPower)
         {
             Check.GreaterThan(price, nameof(price));
             Check.NullOrWhiteSpace(model, nameof(model));

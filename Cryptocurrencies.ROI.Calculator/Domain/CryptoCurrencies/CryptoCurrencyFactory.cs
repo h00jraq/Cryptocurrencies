@@ -8,7 +8,7 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 {
     public static class CryptoCurrencyFactory 
     {
-        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes type, decimal currencyPrice, decimal blockReward, long networkDifficulty)
+        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes type, decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
         {
             switch (type)
             {
