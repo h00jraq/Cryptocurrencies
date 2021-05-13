@@ -16,7 +16,7 @@ namespace ClientApplication
         {
             var chosenCurrency = ChoseCurrencyRate();
 
-            Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
+            Console.WriteLine("\nPlease choose Crypto Currency you are currently mining.\n" +
                               "List of available crypto currencies:");
             foreach (var enumerator in Enum.GetValues<CryptoCurrencyTypes>())
             {
@@ -26,12 +26,12 @@ namespace ClientApplication
             var choosenCryptoCurrency = TryParseEnum<CryptoCurrencyTypes>(cryptoCurrency);
             {
 
-                var device = ChooseComputingDevice();
+                var device = ChooseComputingDevice().First();
                 Console.WriteLine(device.Manufacturer + device.Model + device.Version);
                 var myCrypto = CreateCrypto(choosenCryptoCurrency);
-                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?");
+                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
                 var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
-                Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?");
+                Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
                 var energyPricePerKWH = Convert.ToInt32(Console.ReadLine());
                 var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
                 Console.WriteLine("--------The End--------");
