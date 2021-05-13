@@ -14,41 +14,37 @@ namespace ClientApplication
     {
         static void Main(string[] args)
         {
-            //ShowAvailableCurrencies();
             var chosenCurrency = ChoseCurrencyRate();
 
             Console.WriteLine("Please choose Crypto Currency you are currently mining.\n" +
                               "List of available crypto currencies:");
-
-            int choosenCryptoCurrency = 0;
-            var choosenCryptoCurrencyy = TryParseEnum<CryptoCurrencyTypes>(choosenCryptoCurrency);
-            { 
-            int currencyValue;
-            if (choosenCryptoCurrencyy == CryptoCurrencyTypes.Ethereum)
+            foreach (var enumerator in Enum.GetValues<CryptoCurrencyTypes>())
             {
-                var currencyValue = 3991;
-                var blockReward = 9.2679m;
-                var networkDifficulty = 750000000;
+                Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
             }
-            if (choosenCryptoCurrencyy == CryptoCurrencyTypes.Bitcoin)
+            var cryptoCurrency = Convert.ToInt32(Console.ReadLine());
+            var choosenCryptoCurrency = TryParseEnum<CryptoCurrencyTypes>(cryptoCurrency);
             {
-                var currencyValue = 68206631527.88;
-                var blockReward = 6.8679m;
-                var networkDifficulty =2060000000;
-            }
-            var device = ChooseComputingDevice();
-            foreach (var item in device)
-            {
-                Console.WriteLine(item.Manufacturer + item.Model + item.Version);
-            }
 
+                var device = ChooseComputingDevice();
+                foreach (var item in device)
+                {
+                    Console.WriteLine(item.Manufacturer + item.Model + item.Version);
+                }
 
-            var cryptoCurrency = CryptoCurrencyFactory.CreateCrypto(choosenCryptoCurrencyy, currencyValue, blockReward, networkDifficulty);
-            Console.WriteLine("--------The End--------");
+                var myCrypto = CreateCrypto(choosenCryptoCurrency);
+                Console.WriteLine("--------The End--------");
             }
 
         }
 
+
+        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes choosenCryptoCurrency) => choosenCryptoCurrency switch 
+        {
+            CryptoCurrencyTypes.Ethereum => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Ethereum, 3991m, 9.2679m, 750000000),
+            CryptoCurrencyTypes.Bitcoin => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Bitcoin, 54561.69751m, 6.8679m, 2060000000),
+            _ => throw new ArgumentOutOfRangeException(nameof(choosenCryptoCurrency), $"Not expected crypto value: {choosenCryptoCurrency}"), 
+        };
         private static object ChoseCurrencyRate()
         {
             Object myCurrency = null;
@@ -60,7 +56,7 @@ namespace ClientApplication
                 var conversionRate = conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
                 Console.WriteLine($"Conversion rate from $ to " + yourCurrency + " is " + conversionRate);
                 return conversionRateResult.GetType().GetProperty(yourCurrency).GetValue(conversionRateResult, null);
-                
+
             }
             catch
             {
@@ -129,7 +125,7 @@ namespace ClientApplication
 
             var chosenDevices = DevicesProvider.AvailableDevices.Where(d => d.GetType().Name == deviceType).Where(d => d.Manufacturer == deviceManufacturer).Where(d => d.Model == deviceModel)
                                                                 .Where(d => d.Version == version)
-                                                                .Select(d =>d)
+                                                                .Select(d => d)
                                                                 .ToList();
 
             Console.WriteLine($"The Devices that you have chosen is: \n" +
@@ -166,13 +162,10 @@ namespace ClientApplication
 
         static TEnum TryParseEnum<TEnum>(int value)
         {
-            
-            foreach (var enumerator in Enum.GetValues(typeof(TEnum)))
-              {
-                  Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
-              }
+
+
             Console.Write("Crypto currency number: ");
-            TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Console.ReadLine());
+            TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
             Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency");
             return choosenEnumerator;
 
