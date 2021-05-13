@@ -19,18 +19,20 @@ namespace ClientApplication
             Console.WriteLine("\n Please choose Crypto Currency you are currently mining.\n" +
                                  "List of available crypto currencies:");
 
-           var chosenCryptoCurrency = choseCryptoCurrency();
-           var device = ChooseComputingDevice().First();
-           Console.WriteLine(device.Manufacturer +" " + device.Model + " " + device.Version);
-           var myCrypto = CreateCrypto(chosenCryptoCurrency);
-           Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
-           var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
-           Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
-           var energyPricePerKWH = Convert.ToDecimal(Console.ReadLine());
-           var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
-           Console.WriteLine($"You will get your money back after " + roiINDays + " days of mining 24 hours/day");
-           Console.WriteLine("--------The End--------");
-            
+            var chosenCryptoCurrency = choseCryptoCurrency();
+            var device = ChooseComputingDevice().First();
+            Console.WriteLine(device.Manufacturer + " " + device.Model + " " + device.Version);
+            var myCrypto = CreateCrypto(chosenCryptoCurrency);
+            Console.Write("What is your PC/Device power consumpsion per hour(in Kilowats)?: ");
+            var powerConsumptionPerHours = Convert.ToInt32(Console.ReadLine());
+            Check.GreaterThan(powerConsumptionPerHours, nameof(powerConsumptionPerHours));
+            Console.Write(@"What is your price per Kilowat\h in Yoyr country?: ");
+            var energyPricePerKWH = Convert.ToDecimal(Console.ReadLine());
+            Check.GreaterThan(energyPricePerKWH, nameof(energyPricePerKWH));
+            var roiINDays = myCrypto.CalculateROIinDays(device, powerConsumptionPerHours, energyPricePerKWH, chosenCurrency);
+            Console.WriteLine($"You will get your money back after " + roiINDays + " days of mining 24 hours/day");
+            Console.WriteLine("--------The End--------");
+
 
         }
 
@@ -47,18 +49,18 @@ namespace ClientApplication
             {
                 Console.WriteLine($"You have chosen " + chosenCryptoCurrency + " as Crypto Currency \n");
             }
-            else 
+            else
             {
                 Console.WriteLine("Currency does not exist!");
             }
             return chosenCryptoCurrency;
         }
 
-        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes choosenCryptoCurrency) => choosenCryptoCurrency switch 
+        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes choosenCryptoCurrency) => choosenCryptoCurrency switch
         {
             CryptoCurrencyTypes.Ethereum => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Ethereum, 3991.7733m, 4.446598m, 7503377692267855),
             CryptoCurrencyTypes.Bitcoin => CryptoCurrencyFactory.CreateCrypto(CryptoCurrencyTypes.Bitcoin, 50435.2699m, 6.88159m, 18046e16m),
-            _ => throw new ArgumentOutOfRangeException(nameof(choosenCryptoCurrency), $"Not expected crypto value: {choosenCryptoCurrency}"), 
+            _ => throw new ArgumentOutOfRangeException(nameof(choosenCryptoCurrency), $"Not expected crypto value: {choosenCryptoCurrency}"),
         };
         private static double ChoseCurrencyRate()
         {
@@ -131,7 +133,7 @@ namespace ClientApplication
                                .ToList();
             foreach (var item in listOfModelsByVersion)
             {
-                Console.WriteLine("-" +item.Version);
+                Console.WriteLine("-" + item.Version);
             }
             Console.Write("Device Version: ");
             string version = Console.ReadLine();
