@@ -19,14 +19,6 @@ namespace ClientApplication
             Console.WriteLine("\n Please choose Crypto Currency you are currently mining.\n" +
                                  "List of available crypto currencies:");
 
-
-            //foreach (var enumerator in Enum.GetValues<CryptoCurrencyTypes>())
-            //{
-            //    Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
-            //}
-            // Console.Write("Your currency: ");
-            // var cryptoCurrency = Convert.ToInt32(Console.ReadLine());
-            // var choosenCryptoCurrency = TryParseCryptoEnum<CryptoCurrencyTypes>(cryptoCurrency);
            var chosenCryptoCurrency = choseCryptoCurrency();
            var device = ChooseComputingDevice().First();
            Console.WriteLine(device.Manufacturer +" " + device.Model + " " + device.Version);
