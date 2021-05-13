@@ -177,24 +177,6 @@ namespace ClientApplication
             Console.WriteLine($"You have chosen " + choosenCurrency + " currency");
             return choosenCurrency.ToString(); ;
         }
-
-        /*public static bool TryParseCryptoEnum<TEnum>(int value, out TEnum retVal)
-        {
-
-
-            Console.Write("Crypto currency chosen: ");
-            bool success = Enum.IsDefined(typeof(TEnum), value);
-            if (success)
-            {
-                Console.WriteLine($"You have chosen " + choosenEnumerator + " as Crypto Currency \n");
-                retVal = (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
-            }
-            //TEnum choosenEnumerator = (TEnum)Enum.Parse(typeof(TEnum), Convert.ToString(value));
-            
-            return success;
-
-        }*/
-
         public static bool TryParseCurrencyEnum<TEnum>(int enumValue, out TEnum retVal)
         {
 
