@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using Cryptocurrencies.ROI.Calculator.API;
-using Cryptocurrencies.ROI.Calculator.Infrastructure;
 using Newtonsoft.Json;
 
-namespace ExchangeRate_API
+namespace Cryptocurrencies.ROI.Calculator.Infrastructure
 {
 
     public static class ExchangeRateProvider

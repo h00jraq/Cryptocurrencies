@@ -1,20 +1,16 @@
-﻿using Cryptocurrencies.ROI.Calculator.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices;
+using Cryptocurrencies.ROI.Calculator.HelperClasses;
 
-namespace Cryptocurrencies.ROI.Calculator.Domain
+namespace Cryptocurrencies.ROI.Calculator.Domain.CryptoCurrencies
 {
-    public class Bitcoin : ICalculateROI
+    public class Bitcoin : ICalculateRoi
     {
 
-        public string CurrencyName { get; private set; }
-        public decimal CurrencyPrice { get; private set; }
-        public decimal BlockRewards { get; private set; }
-        public decimal NetworkDifficulty { get; private set; }
+        public string CurrencyName { get; }
+        public decimal CurrencyPrice { get; }
+        public decimal BlockRewards { get; }
+        public decimal NetworkDifficulty { get; }
 
 
         public Bitcoin(decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
@@ -55,12 +51,12 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
         Note: This is an average value, so with a large enough pool and enough days, 
         your earnings will average to this formula (this does not account for the difficulty and network hashpower changing, of course).
         */
-        public decimal CalculateROIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKWH, double currencyRate)
+        public decimal CalculateRoIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKwh, double currencyRate)
         {
             var blockTime = 10; //block length in minutes
             var coinsPerDay = BlockRewards * (1440 / blockTime) * (device.HashPower / NetworkDifficulty);
             Console.WriteLine($"With curren setup, you will mine " + coinsPerDay +" per day");
-            var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice * (decimal)currencyRate) - ((24 * powerConsumptionPerHour) / 1000) * energyPricePerKWH));
+            var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice * (decimal)currencyRate) - ((24 * powerConsumptionPerHour) / 1000) * energyPricePerKwh));
             return Math.Round(returnOfInvestmentTimeInDays);
         }
 

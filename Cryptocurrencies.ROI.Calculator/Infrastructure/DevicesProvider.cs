@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices;
 
 namespace Cryptocurrencies.ROI.Calculator.Infrastructure
 {
     public static class DevicesProvider
     {
-        public static List<ComputingDevice> AvailableDevices = new List<ComputingDevice>()
+        public static readonly List<ComputingDevice> AvailableDevices = new()
             {
                 new GraphicsCard(1000, "GTX 1080", "MSI", "Gaming X", 40),
                 new GraphicsCard(2000, "RTX 3080", "MSI", "OC 3", 100),

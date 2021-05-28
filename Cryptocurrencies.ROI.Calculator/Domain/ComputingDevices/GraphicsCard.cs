@@ -1,11 +1,4 @@
-﻿using Cryptocurrencies.ROI.Calculator.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cryptocurrencies.ROI.Calculator.Domain
+﻿namespace Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices
 {
     public class GraphicsCard : ComputingDevice
     {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cryptocurrencies.ROI.Calculator.Domain
+﻿namespace Cryptocurrencies.ROI.Calculator.Domain.CryptoCurrencies
 {
     public static class CryptoCurrencyFactory 
     {
-        public static ICalculateROI CreateCrypto(CryptoCurrencyTypes type, decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
+        public static ICalculateRoi CreateCrypto(CryptoCurrencyTypes type, decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
         {
             switch (type)
             {

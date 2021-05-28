@@ -3,24 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Cryptocurrencies.ROI.Calculator.Infrastructure
 {
     class CryptoCurrencyData
     {
-        public int id { get; set; }
-        public string coin { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
-        public string algorithm { get; set; }
-        public long network_hashrate { get; set; }
-        public long difficulty { get; set; }
-        public long reward { get; set; }
-        public string reward_unit { get; set; }
-        public decimal reward_block { get; set; }
-        public decimal price { get; set; }
-        public long volume { get; set; }
-        public int updated { get; set; }
+        [JsonProperty("id")]
+
+        public int Id { get; set; }
+        [JsonProperty("coin")]
+        public string Coin { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
+        [JsonProperty("algorithm")]
+        public string Algorithm { get; set; }
+        [JsonProperty("network_hashrate")]
+        public long NetworkHashrate { get; set; }
+        [JsonProperty("difficulty")]
+        public long Difficulty { get; set; }
+        [JsonProperty("reward")]
+        public long Reward { get; set; }
+        [JsonProperty("reward_unit")]
+        public string RewardUnit { get; set; }
+        [JsonProperty("reward_block")]
+        public decimal RewardBlock { get; set; }
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+        [JsonProperty("volume")]
+        public long Volume { get; set; }
+        [JsonProperty("updated")]
+        public int Updated { get; set; }
 
     }
 }

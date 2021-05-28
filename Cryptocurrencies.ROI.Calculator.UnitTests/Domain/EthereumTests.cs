@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices;
+using Cryptocurrencies.ROI.Calculator.Domain.CryptoCurrencies;
 using Xunit;
 
 
@@ -52,7 +54,7 @@ namespace Cryptocurrencies.ROI.Calculator.UnitTests.Domain
             var expectedDays = 503;
 
             //Act
-            var days = ethereum.CalculateROIinDays(GPU,  powerConsumptionPerHour, energyPricePerKWH, currencyRate);
+            var days = ethereum.CalculateRoIinDays(GPU,  powerConsumptionPerHour, energyPricePerKWH, currencyRate);
 
             //Assert
             Assert.Equal(expectedDays, days);

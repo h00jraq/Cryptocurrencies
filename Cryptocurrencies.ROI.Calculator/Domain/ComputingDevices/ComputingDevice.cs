@@ -1,11 +1,6 @@
 ﻿using Cryptocurrencies.ROI.Calculator.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cryptocurrencies.ROI.Calculator.Domain
+namespace Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices
 {
     public abstract class ComputingDevice
     {
@@ -19,7 +14,7 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 
         public long HashPower { get; set; }
 
-        public ComputingDevice(decimal price, string model, string manufacturer, string version, long hashPower)
+        protected ComputingDevice(decimal price, string model, string manufacturer, string version, long hashPower)
         {
             Check.GreaterThan(price, nameof(price));
             Check.NullOrWhiteSpace(model, nameof(model));

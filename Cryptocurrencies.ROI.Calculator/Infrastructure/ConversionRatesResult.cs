@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cryptocurrencies.ROI.Calculator.API
+namespace Cryptocurrencies.ROI.Calculator.Infrastructure
 {
     public class ConversionRatesResult
     {
-        //[JsonProperty("result")]
-        public string result { get; set; }
-        public string documentation { get; set; }
-        public string terms_of_use { get; set; }
-        public string time_zone { get; set; }
-        public string time_last_update { get; set; }
-        public string time_next_update { get; set; }
-        public ConversionRate conversion_rates { get; set; }
+        [JsonProperty("result")]
+        public string Result { get; set; }
+        [JsonProperty("documentation")]
+        public string Documentation { get; set; }
+        [JsonProperty("terms_of_use")]
+        public string TermsOfUse { get; set; }
+        [JsonProperty("time_zone")]
+        public string TimeZone { get; set; }
+        [JsonProperty("time_last_update")]
+        public string TimeLastUpdate { get; set; }
+        [JsonProperty("time_next_update")]
+        public string TimeNextUpdate { get; set; }
+        [JsonProperty("conversion_rates")]
+        public ConversionRate ConversionRates { get; set; }
     }
 }

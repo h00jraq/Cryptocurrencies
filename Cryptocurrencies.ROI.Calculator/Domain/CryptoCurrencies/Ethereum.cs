@@ -1,18 +1,15 @@
-﻿using Cryptocurrencies.ROI.Calculator.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices;
+using Cryptocurrencies.ROI.Calculator.HelperClasses;
 
-namespace Cryptocurrencies.ROI.Calculator.Domain
+namespace Cryptocurrencies.ROI.Calculator.Domain.CryptoCurrencies
 {
-    public class Ethereum : ICalculateROI
+    public class Ethereum : ICalculateRoi
     {
-        public string CurrencyName { get; private set; }
-        public decimal CurrencyPrice { get; private set; }
-        public decimal BlockRewards { get; private set; }
-        public decimal NetworkDifficulty { get; private set; }
+        public string CurrencyName { get; }
+        public decimal CurrencyPrice { get; }
+        public decimal BlockRewards { get; }
+        public decimal NetworkDifficulty { get; }
 
 
         public Ethereum(decimal currencyPrice, decimal blockReward, decimal networkDifficulty)
@@ -28,10 +25,10 @@ namespace Cryptocurrencies.ROI.Calculator.Domain
 
         }
 
-        public decimal CalculateROIinDays(ComputingDevice device,  int powerConsumptionPerHour, decimal energyPricePerKWH, double currencyRate)
+        public decimal CalculateRoIinDays(ComputingDevice device,  int powerConsumptionPerHour, decimal energyPricePerKwh, double currencyRate)
         {
             decimal coinsPerDay = (((device.HashPower * 1000000 * BlockRewards) / NetworkDifficulty) * 3600 * 24);
-            var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice) - ((24 * powerConsumptionPerHour)/1000) * energyPricePerKWH));
+            var returnOfInvestmentTimeInDays = (device.Price / ((coinsPerDay * CurrencyPrice) - ((24 * powerConsumptionPerHour)/1000) * energyPricePerKwh));
             return Math.Round(returnOfInvestmentTimeInDays);
         }
     }

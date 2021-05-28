@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cryptocurrencies.ROI.Calculator.Domain.ComputingDevices;
 
-namespace Cryptocurrencies.ROI.Calculator.Domain
+namespace Cryptocurrencies.ROI.Calculator.Domain.CryptoCurrencies
 {
-    public interface ICalculateROI
+    public interface ICalculateRoi
     {
 
-        public decimal CalculateROIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKWH, double currencyRate);
+        public decimal CalculateRoIinDays(ComputingDevice device, int powerConsumptionPerHour, decimal energyPricePerKwh, double currencyRate);
     
     }
 }
