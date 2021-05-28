@@ -16,10 +16,11 @@ namespace ClientApplication
         {
             try
             {
+                var device = ChooseComputingDevice()?.First();
                 var chosenCurrency = ChoseCurrencyRate();
                 UserConsole.AskChooseCryptoCurrency();
                 var chosenCryptoCurrency = ChoseCryptoCurrency();
-                var device = ChooseComputingDevice()?.First();
+              //  var device = ChooseComputingDevice()?.First();
                 UserConsole.DisplayChosenDevice(device);
                 var myCrypto = CreateCrypto(chosenCryptoCurrency);
                 UserConsole.Ask_PowerConsumptionPerHour();
@@ -42,7 +43,7 @@ namespace ClientApplication
             {
                 Console.WriteLine($"- {(int)enumerator}, {enumerator} ");
             }
-            Console.Write("Your currency: ");
+            //Console.Write("Your currency: ");
             CryptoCurrencyTypes chosenCryptoCurrency = 0;
             var success = false;
             do
@@ -99,7 +100,7 @@ namespace ClientApplication
 
             foreach (var item in listOfDevices)
             {
-                Console.WriteLine("-" + item.GetType().Name);
+                Console.WriteLine("-" + listOfDevices.IndexOf(item) +" "+ item.GetType().Name);
             }
             Console.Write("Your choice:");
             string deviceType = Console.ReadLine();
