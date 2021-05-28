@@ -16,7 +16,9 @@ namespace ClientApplication
         {
             try
             {
-                var device = ChooseComputingDevice()?.First();
+                var device = ChooseBaseDevice();
+                var manufacturer = ChooseDeviceManufacturer(device);
+                //var device = ChooseComputingDevice()?.First();
                 var chosenCurrency = ChoseCurrencyRate();
                 UserConsole.AskChooseCryptoCurrency();
                 var chosenCryptoCurrency = ChoseCryptoCurrency();
@@ -90,6 +92,77 @@ namespace ClientApplication
             return myCurrency;
         }
 
+        static ComputingDevice ChooseBaseDevice()
+        {
+            
+            bool success = false;
+            Console.WriteLine("Please choose what kind of device you are using to mine CryptoCurrency: ");
+            var listOfDevices = DevicesProvider.AvailableDevices.Where(p => p.GetType().BaseType == typeof(ComputingDevice))
+                                .GroupBy(p => p.GetType().Name)
+                                .Select(g => g.First())
+                                .ToList();
+
+            var device = listOfDevices.First();
+
+            foreach (var item in listOfDevices)
+            {
+                Console.WriteLine("-" + listOfDevices.IndexOf(item) + " " + item.GetType().Name);
+            }
+            do
+            {
+                Console.Write("Device type: ");
+                if(!Int32.TryParse(Console.ReadLine(), out int value) || !listOfDevices.Exists(x => x.Id == value))
+                {
+                    Console.WriteLine("That base type does not exist");
+                }
+                else
+                {
+                    success = true;
+                    device = listOfDevices[value];
+                }
+            }
+            while (!success);
+
+
+
+            return device;
+
+        }
+
+        static ComputingDevice ChooseDeviceManufacturer(ComputingDevice device)
+        {
+            Console.WriteLine("\n");
+            bool success = false;
+            Console.WriteLine("Please choose what kind of device you are using to mine CryptoCurrency: ");
+            var manufacturers = DevicesProvider.AvailableDevices.Where(p => p.GetType().Name == device.GetType().Name)
+                                .GroupBy(p => p.Manufacturer)
+                                .Select(p => p.First())
+                                .ToList();
+
+            var devicee = manufacturers.First();
+
+            foreach (var item in manufacturers)
+            {
+                Console.WriteLine("-" + manufacturers.IndexOf(item) + " " + item.Manufacturer);
+            }
+            do
+            {
+                Console.Write("Device Manufacturer: ");
+                if (!Int32.TryParse(Console.ReadLine(), out int value) || !manufacturers.Exists(x => x.Id == value))
+                {
+                    Console.WriteLine("That Manufacturer type does not exist");
+                }
+                else
+                {
+                    success = true;
+                    device = manufacturers[value];
+                }
+            }
+            while (!success);
+
+            return device;
+
+        }
         static IEnumerable<ComputingDevice> ChooseComputingDevice()
         {
             Console.WriteLine("Please choose what kind of device you are using to mine CryptoCurrency: ");

@@ -2,8 +2,8 @@
 {
     class ASIC : ComputingDevice
     {
-        public ASIC(decimal price, string model, string manufacturer, string version, long hashPower)
-            : base(price, model, manufacturer, version, hashPower)
+        public ASIC(int id, decimal price, string model, string manufacturer, string version, long hashPower)
+            : base(id, price, model, manufacturer, version, hashPower)
         {
 
 
